@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(curl -s \"https://docs.google.com/spreadsheets/d/e/2PACX-1vSR_Z37cNFyyZ5wxoGHFef9njc-NDon1Vqx6Dn3gcHYJGMKe0nY7GI9e3z1oUx8HZYj5r6AUB4lRsEZ/pub?gid=0&single=true&output=csv\")",
+      "Bash(curl -sL \"https://docs.google.com/spreadsheets/d/e/2PACX-1vSR_Z37cNFyyZ5wxoGHFef9njc-NDon1Vqx6Dn3gcHYJGMKe0nY7GI9e3z1oUx8HZYj5r6AUB4lRsEZ/pub?gid=0&single=true&output=csv\")"
+    ]
+  }
+}
