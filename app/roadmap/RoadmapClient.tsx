@@ -155,7 +155,7 @@ function FeatureRow({ item }: { item: RoadmapItem }) {
         <div className="flex-1 min-w-0 border-r-[0.5px] border-border" style={{ padding: '10px 12px' }}>
           <p className="font-sans text-[13px] text-foreground leading-relaxed">{item.description}</p>
         </div>
-        <div className="shrink-0 flex items-start justify-end font-sans text-[12px]"
+        <div className="shrink-0 font-sans text-[12px] text-right"
           style={{ width: COL.inspiredBy, padding: '10px 12px' }}>
           <InspiredByContent name={item.inspiredBy} />
         </div>

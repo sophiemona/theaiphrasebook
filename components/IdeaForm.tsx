@@ -88,7 +88,7 @@ export default function IdeaForm() {
                 LinkedIn <span className="normal-case tracking-normal font-normal">— optional</span>
               </label>
               <input
-                type="url"
+                type="text"
                 value={linkedin}
                 onChange={(e) => setLinkedin(e.target.value)}
                 placeholder="https://www.linkedin.com/in/dario-amodei-3934934/"
