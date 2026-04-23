@@ -2,7 +2,41 @@
 
 import { useState } from "react"
 
-export default function IdeaForm() {
+interface IdeaFormMessages {
+  overline: string
+  headline_prefix: string
+  headline_em: string
+  headline_suffix: string
+  description: string
+  first_name: string
+  last_name: string
+  linkedin_optional: string
+  idea_label: string
+  submit: string
+  sending: string
+  success: string
+  error: string
+}
+
+const EN: IdeaFormMessages = {
+  overline: "Feature requests",
+  headline_prefix: "Got an",
+  headline_em: "idea",
+  headline_suffix: "?",
+  description: "Tell us what you'd want to see built. If it makes the roadmap, your name goes on the card.",
+  first_name: "First name",
+  last_name: "Last name",
+  linkedin_optional: "— optional",
+  idea_label: "Your idea",
+  submit: "Submit",
+  sending: "Sending...",
+  success: "Idea received. We'll take a look.",
+  error: "Something went wrong. Please try again.",
+}
+
+export default function IdeaForm({ messages }: { messages?: IdeaFormMessages }) {
+  const m = messages ?? EN
+
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [linkedin, setLinkedin] = useState("")
@@ -26,7 +60,7 @@ export default function IdeaForm() {
       if (!res.ok) throw new Error("Failed")
       setSubmitted(true)
     } catch {
-      setError("Something went wrong. Please try again.")
+      setError(m.error)
     } finally {
       setSubmitting(false)
     }
@@ -39,13 +73,17 @@ export default function IdeaForm() {
         {/* Left — heading */}
         <div className="md:col-span-2">
           <p className="font-sans text-[11px] uppercase tracking-wider text-muted-foreground mb-3">
-            Feature requests
+            {m.overline}
           </p>
           <h2 className="font-serif font-bold text-[28px] md:text-[32px] leading-tight mb-3 text-foreground">
-            Got an <em style={{ textDecoration: "underline", textDecorationColor: "#FFA51F", textUnderlineOffset: "4px", textDecorationThickness: "2px" }}>idea</em>?
+            {m.headline_prefix}{" "}
+            <em style={{ textDecoration: "underline", textDecorationColor: "#FFA51F", textUnderlineOffset: "4px", textDecorationThickness: "2px" }}>
+              {m.headline_em}
+            </em>
+            {m.headline_suffix}
           </h2>
           <p className="font-sans text-[14px] text-muted-foreground leading-relaxed">
-            Tell us what you'd want to see built. If it makes the roadmap, your name goes on the card.
+            {m.description}
           </p>
         </div>
 
@@ -56,7 +94,7 @@ export default function IdeaForm() {
             <div className="flex gap-3">
               <div className="flex-1">
                 <label className="font-sans text-[10px] uppercase tracking-wider text-muted-foreground block mb-1.5">
-                  First name
+                  {m.first_name}
                 </label>
                 <input
                   type="text"
@@ -69,7 +107,7 @@ export default function IdeaForm() {
               </div>
               <div className="flex-1">
                 <label className="font-sans text-[10px] uppercase tracking-wider text-muted-foreground block mb-1.5">
-                  Last name
+                  {m.last_name}
                 </label>
                 <input
                   type="text"
@@ -85,7 +123,7 @@ export default function IdeaForm() {
             {/* LinkedIn */}
             <div>
               <label className="font-sans text-[10px] uppercase tracking-wider text-muted-foreground block mb-1.5">
-                LinkedIn <span className="normal-case tracking-normal font-normal">— optional</span>
+                LinkedIn <span className="normal-case tracking-normal font-normal">{m.linkedin_optional}</span>
               </label>
               <input
                 type="text"
@@ -99,7 +137,7 @@ export default function IdeaForm() {
             {/* Idea */}
             <div>
               <label className="font-sans text-[10px] uppercase tracking-wider text-muted-foreground block mb-1.5">
-                Your idea
+                {m.idea_label}
               </label>
               <textarea
                 value={idea}
@@ -120,14 +158,14 @@ export default function IdeaForm() {
                 type="submit"
                 className="bg-accent text-foreground font-sans font-bold text-[14px] px-[22px] py-[7px] rounded-[6px] hover:bg-[#f09800] transition-colors"
               >
-                {submitting ? "Sending..." : "Submit"}
+                {submitting ? m.sending : m.submit}
               </button>
             </div>
           </form>
         ) : (
           <div className="md:col-span-3 flex items-start">
             <p className="font-sans text-[14px] text-foreground">
-              Idea received. We&apos;ll take a look.
+              {m.success}
             </p>
           </div>
         )}

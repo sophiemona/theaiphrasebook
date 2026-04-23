@@ -52,6 +52,21 @@ export interface Messages {
     ready: string
     page_aria: string
   }
+  idea_form: {
+    overline: string
+    headline_prefix: string
+    headline_em: string
+    headline_suffix: string
+    description: string
+    first_name: string
+    last_name: string
+    linkedin_optional: string
+    idea_label: string
+    submit: string
+    sending: string
+    success: string
+    error: string
+  }
   chapters: Record<string, string>
   about: {
     back: string

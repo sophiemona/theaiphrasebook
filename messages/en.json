@@ -76,6 +76,21 @@
     "ready": "Definition for {term} is ready.",
     "page_aria": "Look up an AI term"
   },
+  "idea_form": {
+    "overline": "Feature requests",
+    "headline_prefix": "Got an",
+    "headline_em": "idea",
+    "headline_suffix": "?",
+    "description": "Tell us what you\u2019d want to see built. If it makes the roadmap, your name goes on the card.",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "linkedin_optional": "\u2014 optional",
+    "idea_label": "Your idea",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "success": "Idea received. We\u2019ll take a look.",
+    "error": "Something went wrong. Please try again."
+  },
   "about": {
     "back": "\u2190 Back to the AI Phrasebook",
     "help": "Help a colleague in need",

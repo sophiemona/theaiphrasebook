@@ -209,8 +209,7 @@ export default function AboutClient({
               <RoadmapClient items={items} />
             )}
 
-            {/* IdeaForm is English-only for now */}
-            <IdeaForm />
+            <IdeaForm messages={t.idea_form} />
           </div>
         </section>
 
@@ -228,7 +227,10 @@ export default function AboutClient({
             style={{ fontSize: "26px", lineHeight: "1.3" }}
           >
             {a.cta_headline1}<br />
-            {a.cta_headline2} <em>{a.cta_headline2_em}</em>
+            {a.cta_headline2}{" "}
+            <em style={{ textDecoration: "underline", textDecorationColor: "#FFA51F", textUnderlineOffset: "4px", textDecorationThickness: "2px" }}>
+              {a.cta_headline2_em}
+            </em>
           </h2>
           <p
             className="font-sans text-[14px] mb-8"
