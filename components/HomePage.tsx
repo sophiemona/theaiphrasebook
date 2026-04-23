@@ -78,7 +78,7 @@ function LanguageToggle({ locale }: { locale: Locale }) {
 
   return (
     <div
-      className="flex items-center rounded-full"
+      className="flex items-center rounded-full p-[3px]"
       style={{
         background: "#F0EFEB",
         border: "0.5px solid #DDDDDD",
@@ -88,9 +88,11 @@ function LanguageToggle({ locale }: { locale: Locale }) {
         onClick={() => router.push("/")}
         aria-label="Switch to English"
         aria-pressed={locale === "en"}
-        className="flex items-center justify-center w-8 h-8 rounded-full font-sans text-[13px] transition-colors cursor-pointer border-0"
+        className="flex items-center justify-center rounded-full font-sans text-[15px] transition-colors cursor-pointer border-0"
         style={{
           background: locale === "en" ? "#1A1A1A" : "transparent",
+          width: "38px",
+          height: "34px",
         }}
       >
         🇬🇧
@@ -99,9 +101,11 @@ function LanguageToggle({ locale }: { locale: Locale }) {
         onClick={() => router.push("/fr")}
         aria-label="Passer en français"
         aria-pressed={locale === "fr"}
-        className="flex items-center justify-center w-8 h-8 rounded-full font-sans text-[13px] transition-colors cursor-pointer border-0"
+        className="flex items-center justify-center rounded-full font-sans text-[15px] transition-colors cursor-pointer border-0"
         style={{
           background: locale === "fr" ? "#1A1A1A" : "transparent",
+          width: "38px",
+          height: "34px",
         }}
       >
         🇫🇷
@@ -157,9 +161,13 @@ function LoadingSequence({ messages }: { messages: string[] }) {
 interface HomePageProps {
   locale: Locale
   messages: Messages
+  // Newsletter and footer always use this — defaults to messages if omitted
+  staticMessages?: Pick<Messages, "newsletter" | "credits" | "footer">
 }
 
-export default function HomePage({ locale, messages: t }: HomePageProps) {
+export default function HomePage({ locale, messages: t, staticMessages }: HomePageProps) {
+  // Newsletter and footer sections use staticMessages when provided (e.g. always English)
+  const s = staticMessages ?? t
   const [term, setTerm] = useState("")
   const [entry, setEntry] = useState<EntryData | null>(null)
   const [loading, setLoading] = useState(false)
@@ -268,26 +276,29 @@ export default function HomePage({ locale, messages: t }: HomePageProps) {
       )}
 
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
-      <header className="grid grid-cols-3 items-center px-6 py-4">
+      {/*
+        Toggle is absolutely centered in the header so its position never
+        shifts regardless of how long the left or right text is.
+      */}
+      <header className="relative flex items-center justify-between px-6 py-4">
         <a
           href="/about"
-          className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1"
+          className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1 relative z-10"
         >
           {t.nav.about}
         </a>
 
-        <div className="flex justify-center">
+        {/* Absolutely centered — never moves regardless of side widths */}
+        <div className="absolute left-1/2 -translate-x-1/2">
           <LanguageToggle locale={locale} />
         </div>
 
-        <div className="flex justify-end">
-          <button
-            onClick={handleEmail}
-            className="bg-transparent border border-border rounded-[6px] font-sans font-bold text-[14px] text-foreground px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer"
-          >
-            {t.nav.help}
-          </button>
-        </div>
+        <button
+          onClick={handleEmail}
+          className="bg-transparent border border-border rounded-[6px] font-sans font-bold text-[14px] text-foreground px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap relative z-10"
+        >
+          {t.nav.help}
+        </button>
       </header>
 
       {/* ── Center ───────────────────────────────────────────────────────── */}
@@ -469,43 +480,43 @@ export default function HomePage({ locale, messages: t }: HomePageProps) {
 
       {/* ── Newsletter band ──────────────────────────────────────────────── */}
       <section
-        aria-label={t.nav.newsletter_aria}
+        aria-label="Subscribe to the Monday Series newsletter"
         className="text-center px-6 py-12 bg-surface"
         style={{ borderTop: "0.5px solid #DDDDDD" }}
       >
         <p className="font-sans font-bold text-[11px] uppercase tracking-widest text-muted-foreground mb-2">
-          {t.newsletter.series}
+          {s.newsletter.series}
         </p>
         <h2 className="font-serif font-bold text-[20px] text-foreground mb-4">
-          {t.newsletter.headline_prefix} <em>{t.newsletter.headline_em}</em>{t.newsletter.headline_suffix}
+          {s.newsletter.headline_prefix} <em>{s.newsletter.headline_em}</em>{s.newsletter.headline_suffix}
         </h2>
         <p
           className="font-sans text-[14px] text-muted-foreground mx-auto mb-6"
           style={{ maxWidth: "400px" }}
         >
-          {t.newsletter.description}
+          {s.newsletter.description}
         </p>
 
         {emailSubmitted ? (
           <p className="font-sans text-[14px] text-foreground">
-            {t.newsletter.success}
+            {s.newsletter.success}
           </p>
         ) : (
           <form
             onSubmit={handleEmailSubmit}
-            aria-label={t.nav.newsletter_aria}
+            aria-label="Subscribe to the Monday Series newsletter"
             className="flex gap-2 mx-auto"
             style={{ maxWidth: "360px" }}
           >
             <label htmlFor="newsletter-email" className="sr-only">
-              {t.newsletter.email_placeholder}
+              {s.newsletter.email_placeholder}
             </label>
             <input
               id="newsletter-email"
               type="email"
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
-              placeholder={t.newsletter.email_placeholder}
+              placeholder={s.newsletter.email_placeholder}
               required
               autoComplete="email"
               className="flex-1 font-sans bg-background outline-none focus:border-[#AAAAAA] transition-colors"
@@ -521,7 +532,7 @@ export default function HomePage({ locale, messages: t }: HomePageProps) {
               disabled={emailSubmitting}
               className="font-sans font-bold text-[14px] text-white bg-foreground border-0 rounded-[6px] px-[18px] py-[7px] hover:bg-[#333333] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {emailSubmitting ? t.newsletter.sending : t.newsletter.subscribe}
+              {emailSubmitting ? s.newsletter.sending : s.newsletter.subscribe}
             </button>
           </form>
         )}
@@ -550,12 +561,12 @@ export default function HomePage({ locale, messages: t }: HomePageProps) {
           </a>
         </p>
         <button
-          onClick={() => setClaudeIndex((prev) => (prev + 1) % t.credits.length)}
-          aria-label={t.footer.credits_aria}
+          onClick={() => setClaudeIndex((prev) => (prev + 1) % s.credits.length)}
+          aria-label={s.footer.credits_aria}
           className="font-sans text-[11px] bg-transparent border-0 p-0 cursor-pointer underline-offset-2 hover:underline"
           style={{ color: "#CCCCCC" }}
         >
-          {t.credits[claudeIndex]}
+          {s.credits[claudeIndex]}
         </button>
       </footer>
     </div>
