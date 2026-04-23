@@ -214,7 +214,7 @@ export default function Home() {
   const handleSurprise = () => {
     const randomTerm = SURPRISE_TERMS[Math.floor(Math.random() * SURPRISE_TERMS.length)]
     setTerm(randomTerm)
-    searchRef.current?.focus()
+    generateEntry(randomTerm)
   }
 
   const handleEmail = async () => {
