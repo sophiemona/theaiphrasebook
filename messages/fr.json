@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "about": "À propos",
+    "help": "Partager avec un collègue",
+    "newsletter_aria": "S'abonner à La Série du Lundi"
+  },
+  "hero": {
+    "tagline_prefix": "Tout le jargon de l'IA.",
+    "tagline_suffix": "En clair."
+  },
+  "search": {
+    "label": "Chercher un terme IA",
+    "look_it_up": "Chercher",
+    "surprise_me": "Au hasard",
+    "surprise_aria": "Choisir un terme au hasard",
+    "form_aria": "Chercher un terme IA"
+  },
+  "entry": {
+    "nutshell": "EN BREF",
+    "need_to_know": "CE QU'IL FAUT VRAIMENT SAVOIR",
+    "say_this": "Dis ça",
+    "not_this": "Pas ça"
+  },
+  "newsletter": {
+    "series": "LA SÉRIE DU LUNDI",
+    "headline_prefix": "Un terme expliqué. Chaque",
+    "headline_em": "lundi",
+    "headline_suffix": ".",
+    "description": "Écrit par des humains, prêt à l'emploi. La version qu'on imprimerait, si imprimer des choses sur l'IA n'était pas légèrement tragique.",
+    "email_placeholder": "votre@email.com",
+    "subscribe": "S'abonner",
+    "sending": "Envoi...",
+    "success": "C'est noté. À lundi.",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "share": {
+    "email_subject": "La prochaine fois que quelqu'un dit RAG en réunion",
+    "email_body": "Tu as vu ça ?\n\nC'est un outil gratuit qui explique les termes de l'IA en clair.\n\nhttps://www.theaiphrasebook.com/fr",
+    "native_title": "The AI Phrasebook",
+    "native_text": "Tu as vu ça ?\n\nC'est un outil gratuit qui explique les termes de l'IA en clair.\n\nhttps://www.theaiphrasebook.com/fr"
+  },
+  "errors": {
+    "generate_failed": "Impossible de générer l'entrée. Veuillez réessayer."
+  },
+  "loading": [
+    "Consultation de Claude.",
+    "Claude est consulté.",
+    "Suppression des hallucinations. La plupart.",
+    "Rédaction de la définition.",
+    "Réécriture de la définition.",
+    "Vérification qu'un humain pourrait lire ça à voix haute.",
+    "Il ne pouvait pas. On recommence.",
+    "Ajout de personnalité.",
+    "Suppression de l'excès de personnalité.",
+    "Consultation d'un ami.",
+    "Consultation d'un autre ami.",
+    "Presque terminé. Probablement."
+  ],
+  "credits": [
+    "écrit avec Claude parce qu'il n'a pas d'avis sur les polices de caractères.",
+    "construit avec Claude, qui a proposé des dégradés. deux fois.",
+    "Claude a tapé. Sophie a tout supprimé.",
+    "fait avec Claude (il fait de son mieux).",
+    "propulsé par une IA qui ne sait pas ce qu'elle ne sait pas.",
+    "Claude a aidé. Ygor a supervisé.",
+    "aucune IA n'a été hallucinée dans la fabrication de ce site.",
+    "50 % humain. 50 % Claude. 100 % réécrit.",
+    "assisté par l'IA. approuvé par l'humain. le chien s'en fout.",
+    "Claude a écrit. J'ai relu. On ne parle pas du premier jet."
+  ],
+  "footer": {
+    "credits_aria": "Faire défiler les crédits Claude"
+  },
+  "sr": {
+    "loading": "Recherche en cours, veuillez patienter.",
+    "ready": "Définition de {term} prête.",
+    "page_aria": "Chercher un terme IA"
+  },
+  "chapters": {
+    "The Landscape - Chapter 1": "Le panorama - Chapitre 1",
+    "How It Thinks - Chapter 2": "Comment ça pense - Chapitre 2",
+    "How It\u2019s Built & Shaped - Chapter 3": "Comment ça se construit - Chapitre 3",
+    "How It Gets Deployed - Chapter 4": "Comment ça se déploie - Chapitre 4",
+    "The Risks & Guardrails - Chapter 5": "Les risques et garde-fous - Chapitre 5",
+    "The Business Layer - Chapter 6": "La dimension business - Chapitre 6",
+    "The AI Phrasebook": "The AI Phrasebook"
+  }
+}

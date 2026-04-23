@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "about": "About",
+    "help": "Help a colleague in need",
+    "newsletter_aria": "Subscribe to the Monday Series newsletter"
+  },
+  "hero": {
+    "tagline_prefix": "Any AI word.",
+    "tagline_suffix": "Plain English."
+  },
+  "search": {
+    "label": "Search for an AI term",
+    "look_it_up": "Look it up",
+    "surprise_me": "Surprise me",
+    "surprise_aria": "Pick a random AI term",
+    "form_aria": "Look up an AI term"
+  },
+  "entry": {
+    "nutshell": "IN A NUTSHELL",
+    "need_to_know": "WHAT YOU ABSOLUTELY NEED TO KNOW",
+    "say_this": "Say this",
+    "not_this": "Not this"
+  },
+  "newsletter": {
+    "series": "THE MONDAY SERIES",
+    "headline_prefix": "One word explained. Every",
+    "headline_em": "Monday",
+    "headline_suffix": ".",
+    "description": "Edited by humans, ready to use. The version we\u2019d print, if printing things about AI weren\u2019t a little bit tragic.",
+    "email_placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "sending": "Sending...",
+    "success": "You\u2019re in. See you Monday.",
+    "error": "Something went wrong. Please try again."
+  },
+  "share": {
+    "email_subject": "Next time someone says RAG in a meeting",
+    "email_body": "Have you seen this?\n\nIt's a free tool that explains AI terms in plain English.\n\nhttps://www.theaiphrasebook.com",
+    "native_title": "The AI Phrasebook",
+    "native_text": "Have you seen this?\n\nIt's a free tool that explains AI terms in plain English.\n\nhttps://www.theaiphrasebook.com"
+  },
+  "errors": {
+    "generate_failed": "Failed to generate entry. Please try again."
+  },
+  "loading": [
+    "Consulting Claude.",
+    "Claude is consulted.",
+    "Removing hallucinations. Most of them.",
+    "Writing the definition.",
+    "Rewriting the definition.",
+    "Verifying a real person could read this out loud.",
+    "They couldn\u2019t. Rewriting.",
+    "Adding personality.",
+    "Removing excess personality.",
+    "Asking a friend.",
+    "Asking another friend.",
+    "Almost done. Probably."
+  ],
+  "credits": [
+    "written with Claude because it doesn\u2019t have opinions about the font.",
+    "built with Claude, who suggested gradients. twice.",
+    "Claude did the typing. Sophie did the deleting.",
+    "made with Claude (he\u2019s trying his best).",
+    "powered by an AI that doesn\u2019t know what it doesn\u2019t know.",
+    "Claude helped. Ygor supervised.",
+    "no AIs were hallucinated in the making of this site.",
+    "50% human. 50% Claude. 100% edited.",
+    "AI-assisted. Human-approved. Dog-adjacent.",
+    "Claude wrote this. I reviewed it. We don\u2019t talk about the first draft."
+  ],
+  "footer": {
+    "credits_aria": "Cycle through Claude credits"
+  },
+  "sr": {
+    "loading": "Looking up definition, please wait.",
+    "ready": "Definition for {term} is ready.",
+    "page_aria": "Look up an AI term"
+  },
+  "chapters": {
+    "The Landscape - Chapter 1": "The Landscape - Chapter 1",
+    "How It Thinks - Chapter 2": "How It Thinks - Chapter 2",
+    "How It\u2019s Built & Shaped - Chapter 3": "How It\u2019s Built & Shaped - Chapter 3",
+    "How It Gets Deployed - Chapter 4": "How It Gets Deployed - Chapter 4",
+    "The Risks & Guardrails - Chapter 5": "The Risks & Guardrails - Chapter 5",
+    "The Business Layer - Chapter 6": "The Business Layer - Chapter 6",
+    "The AI Phrasebook": "The AI Phrasebook"
+  }
+}
