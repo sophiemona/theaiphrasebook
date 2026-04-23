@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import type { Messages, Locale } from "@/lib/i18n"
-import LanguageToggle from "@/components/LanguageToggle"
+import NavBar from "@/components/NavBar"
 
 // ─── data ────────────────────────────────────────────────────────────────────
 
@@ -232,31 +232,15 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
         </div>
       )}
 
-      {/* ── Top bar ──────────────────────────────────────────────────────── */}
-      {/*
-        Toggle is absolutely centered in the header so its position never
-        shifts regardless of how long the left or right text is.
-      */}
-      <header className="relative flex items-center justify-between px-6 py-4">
-        <a
-          href="/about"
-          className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1 relative z-10"
-        >
-          {t.nav.about}
-        </a>
-
-        {/* Absolutely centered — never moves regardless of side widths */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <LanguageToggle locale={locale} enUrl="/" frUrl="/fr" />
-        </div>
-
-        <button
-          onClick={handleEmail}
-          className="bg-transparent border border-border rounded-[6px] font-sans font-bold text-[14px] text-foreground px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap relative z-10"
-        >
-          {t.nav.help}
-        </button>
-      </header>
+      <NavBar
+        locale={locale}
+        enUrl="/"
+        frUrl="/fr"
+        leftHref="/about"
+        leftLabel={t.nav.about}
+        onShare={handleEmail}
+        shareLabel={t.nav.help}
+      />
 
       {/* ── Center ───────────────────────────────────────────────────────── */}
       <main

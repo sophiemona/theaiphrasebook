@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import RoadmapClient, { type RoadmapItem } from "./RoadmapClient"
 import IdeaForm from "@/components/IdeaForm"
-import LanguageToggle from "@/components/LanguageToggle"
+import NavBar from "@/components/NavBar"
 import type { Messages, Locale } from "@/lib/i18n"
 
 // ─── data ────────────────────────────────────────────────────────────────────
@@ -86,26 +86,16 @@ export default function AboutClient({
     <div className="min-h-screen flex flex-col bg-background">
 
       {/* ── 1. TOP BAR ───────────────────────────────────────────────────── */}
-      <header className="relative flex items-center justify-between px-6 md:px-10 py-4">
-        <a
-          href={a.home_url}
-          className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1 relative z-10"
-        >
-          {a.back}
-        </a>
-
-        {/* Absolutely centered toggle */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <LanguageToggle locale={locale} enUrl="/about" frUrl="/fr/about" />
-        </div>
-
-        <button
-          onClick={handleEmail}
-          className="bg-transparent border border-border rounded-[6px] font-sans font-bold text-[14px] text-foreground px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap relative z-10"
-        >
-          {a.help}
-        </button>
-      </header>
+      <NavBar
+        locale={locale}
+        enUrl="/about"
+        frUrl="/fr/about"
+        leftHref={a.home_url}
+        leftLabel={a.back}
+        onShare={handleEmail}
+        shareLabel={a.help}
+        headerClassName="md:px-10"
+      />
 
       <main className="flex-1">
 
