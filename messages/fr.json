@@ -77,7 +77,7 @@
     "page_aria": "Chercher un terme IA"
   },
   "about": {
-    "back": "\u2190 Retour au AI Phrasebook",
+    "back": "\u2190 Retour",
     "help": "Partager avec un coll\u00e8gue",
     "section_label": "\u00c0 PROPOS",
     "hero_line1": "Une r\u00e9union.",
@@ -92,7 +92,7 @@
     "roadmap_label": "NOUVELLES FONCTIONNALIT\u00c9S EN COURS",
     "roadmap_headline": "D\u00e9velopp\u00e9 en public, fa\u00e7onn\u00e9 par",
     "roadmap_headline_em": "vous",
-    "roadmap_sub": "Chaque \u00e9l\u00e9ment de cette liste vient d\u2019une vraie conversation. Uniquement avec des humains.",
+    "roadmap_sub": "Chaque \u00e9l\u00e9ment de cette liste vient d\u2019une vraie conversation, avec des humains.",
     "roadmap_title": "The AI Phrasebook Roadmap",
     "roadmap_error": "Impossible de charger les donn\u00e9es. Veuillez r\u00e9essayer plus tard.",
     "cta_headline1": "Assez lu.",
