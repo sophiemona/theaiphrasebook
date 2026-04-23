@@ -118,7 +118,7 @@ export default function IdeaForm() {
             <div>
               <button
                 type="submit"
-                className="bg-accent text-foreground font-sans font-bold text-[13px] px-6 py-3 hover:opacity-90 transition-opacity"
+                className="bg-accent text-foreground font-sans font-bold text-[14px] px-[22px] py-[7px] rounded-[6px] hover:bg-[#f09800] transition-colors"
               >
                 {submitting ? "Sending..." : "Submit idea"}
               </button>

@@ -1,8 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-import RoadmapClient, { type RoadmapItem } from './RoadmapClient'
-import Footer from '@/components/Footer'
-import IdeaForm from '@/components/IdeaForm'
+import AboutClient from './AboutClient'
+import { type RoadmapItem } from './RoadmapClient'
 
 async function fetchRoadmapData(): Promise<RoadmapItem[]> {
   const url =
@@ -64,52 +63,5 @@ export default async function RoadmapPage() {
     fetchError = true
   }
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Logo Bar */}
-      <header className="h-12 w-full bg-logo-bar flex items-center justify-between px-4 md:px-8">
-        <a
-          href="/"
-          className="font-sans font-bold text-[16px] text-foreground hover:opacity-80 transition-opacity"
-        >
-          The AI Phrasebook
-        </a>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-4 md:px-8 pt-16 pb-24">
-        {/* Hero */}
-        <section className="mb-16">
-          <p className="font-sans text-[11px] uppercase tracking-wider text-muted-foreground mb-3">
-            New features we&apos;re working on
-          </p>
-          <h1 className="font-serif font-bold text-[32px] md:text-[40px] leading-tight mb-4 text-foreground">
-            Built in public, shaped by{" "}
-            <span className="italic border-b-[3px] border-accent">you</span>.
-          </h1>
-          <p className="font-sans text-[15px] text-muted-foreground leading-relaxed">
-            Every item on this list came from a real conversation. Mostly with humans.
-          </p>
-        </section>
-
-        <p className="font-sans text-[11px] uppercase tracking-wider text-muted-foreground mb-4">
-          The AI Phrasebook Roadmap
-        </p>
-
-        {/* Error state */}
-        {fetchError ? (
-          <div className="border-[0.5px] border-border p-6">
-            <p className="font-sans text-[14px] text-muted-foreground">
-              Could not load roadmap data. Please try again later.
-            </p>
-          </div>
-        ) : (
-          <RoadmapClient items={items} />
-        )}
-
-        <IdeaForm />
-      </main>
-
-      <Footer />
-    </div>
-  )
+  return <AboutClient items={items} fetchError={fetchError} />
 }
