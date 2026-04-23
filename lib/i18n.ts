@@ -53,6 +53,32 @@ export interface Messages {
     page_aria: string
   }
   chapters: Record<string, string>
+  about: {
+    back: string
+    help: string
+    section_label: string
+    hero_line1: string
+    hero_line2: string
+    hero_line3_prefix: string
+    hero_line3_em: string
+    hero_sub: string
+    origin_label: string
+    origin_p1: string
+    origin_p2: string
+    origin_p3: string
+    roadmap_label: string
+    roadmap_headline: string
+    roadmap_headline_em: string
+    roadmap_sub: string
+    roadmap_title: string
+    roadmap_error: string
+    cta_headline1: string
+    cta_headline2: string
+    cta_headline2_em: string
+    cta_sub: string
+    cta_button: string
+    home_url: string
+  }
 }
 
 export type Locale = "en" | "fr"

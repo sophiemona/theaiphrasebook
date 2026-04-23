@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react"
 import RoadmapClient, { type RoadmapItem } from "./RoadmapClient"
 import IdeaForm from "@/components/IdeaForm"
+import LanguageToggle from "@/components/LanguageToggle"
+import type { Messages, Locale } from "@/lib/i18n"
 
 // ─── data ────────────────────────────────────────────────────────────────────
 
@@ -24,9 +26,13 @@ const CLAUDE_CREDITS = [
 export default function AboutClient({
   items,
   fetchError,
+  locale,
+  messages: t,
 }: {
   items: RoadmapItem[]
   fetchError: boolean
+  locale: Locale
+  messages: Messages
 }) {
   const [emailInput, setEmailInput] = useState("")
   const [emailSubmitting, setEmailSubmitting] = useState(false)
@@ -41,17 +47,15 @@ export default function AboutClient({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "The AI Phrasebook",
-          text: "Have you seen this?\n\nIt's a free tool that explains AI terms in plain English.\n\nhttps://www.theaiphrasebook.com",
+          title: t.share.native_title,
+          text: t.share.native_text,
         })
       } catch {
         // user cancelled
       }
     } else {
-      const subject = encodeURIComponent("Next time someone says RAG in a meeting")
-      const body = encodeURIComponent(
-        "Have you seen this?\n\nIt's a free tool that explains AI terms in plain English.\n\nhttps://www.theaiphrasebook.com"
-      )
+      const subject = encodeURIComponent(t.share.email_subject)
+      const body = encodeURIComponent(t.share.email_body)
       window.location.href = `mailto:?subject=${subject}&body=${body}`
     }
   }
@@ -76,22 +80,30 @@ export default function AboutClient({
     }
   }
 
+  const a = t.about
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
 
       {/* ── 1. TOP BAR ───────────────────────────────────────────────────── */}
-      <header className="flex items-center justify-between px-6 md:px-10 py-4">
+      <header className="relative flex items-center justify-between px-6 md:px-10 py-4">
         <a
-          href="/"
-          className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1"
+          href={a.home_url}
+          className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1 relative z-10"
         >
-          ← Back to the AI Phrasebook
+          {a.back}
         </a>
+
+        {/* Absolutely centered toggle */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <LanguageToggle locale={locale} enUrl="/about" frUrl="/fr/about" />
+        </div>
+
         <button
           onClick={handleEmail}
-          className="bg-transparent border border-border rounded-[6px] font-sans font-bold text-[14px] text-foreground px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer"
+          className="bg-transparent border border-border rounded-[6px] font-sans font-bold text-[14px] text-foreground px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap relative z-10"
         >
-          Help a colleague in need
+          {a.help}
         </button>
       </header>
 
@@ -107,15 +119,15 @@ export default function AboutClient({
               className="font-sans font-bold text-[11px] uppercase tracking-widest mb-5"
               style={{ color: "#888888" }}
             >
-              ABOUT
+              {a.section_label}
             </p>
             <h1
               className="font-serif font-bold text-foreground mb-6"
               style={{ fontSize: "40px", lineHeight: "1.15" }}
             >
-              One meeting.<br />
-              Full impostor syndrome.<br />
-              I went home and built{" "}
+              {a.hero_line1}<br />
+              {a.hero_line2}<br />
+              {a.hero_line3_prefix}{" "}
               <em
                 style={{
                   textDecoration: "underline",
@@ -125,11 +137,11 @@ export default function AboutClient({
                   fontStyle: "italic",
                 }}
               >
-                this.
+                {a.hero_line3_em}
               </em>
             </h1>
             <p className="font-serif italic text-[18px]" style={{ color: "#888888" }}>
-              Keep reading. The project is open. You can be part of it.
+              {a.hero_sub}
             </p>
           </div>
         </section>
@@ -141,27 +153,25 @@ export default function AboutClient({
               className="font-sans font-bold text-[11px] uppercase tracking-widest mb-8"
               style={{ color: "#DDDDDD" }}
             >
-              THE ORIGIN STORY
+              {a.origin_label}
             </p>
             <p
               className="font-sans text-[16px] text-foreground mb-6"
               style={{ lineHeight: "1.75" }}
             >
-              I work in AI transformation for a CAC40 company. A lot of meetings. A lot of AI words. For a while, I nodded along with everyone else.
+              {a.origin_p1}
             </p>
             <p
               className="font-sans text-[16px] text-foreground mb-8"
               style={{ lineHeight: "1.75" }}
             >
-              One day I asked Claude: what are the 10 terms I actually need? Then: give me one sentence for each, natural enough to say in a meeting.
+              {a.origin_p2}
             </p>
-
-
             <p
               className="font-sans text-[16px] text-foreground"
               style={{ lineHeight: "1.75" }}
             >
-              The result became a personal cheat sheet, then -- because I was looking for the perfect excuse to try Claude Code -- this.
+              {a.origin_p3}
             </p>
           </div>
         </section>
@@ -173,33 +183,33 @@ export default function AboutClient({
         >
           <div className="mx-auto px-5 md:px-[40px]" style={{ maxWidth: "768px" }}>
             <p className="font-sans text-[11px] uppercase tracking-wider text-muted-foreground mb-3">
-              New features we&apos;re working on
+              {a.roadmap_label}
             </p>
             <h2
               className="font-serif font-bold text-foreground mb-4"
               style={{ fontSize: "32px", lineHeight: "1.2" }}
             >
-              Built in public, shaped by{" "}
-              <span className="italic border-b-[3px] border-accent">you</span>.
+              {a.roadmap_headline}{" "}
+              <span className="italic border-b-[3px] border-accent">{a.roadmap_headline_em}</span>.
             </h2>
             <p className="font-sans text-[15px] text-muted-foreground leading-relaxed mb-8">
-              Every item on this list came from a real conversation. Mostly with humans.
+              {a.roadmap_sub}
             </p>
             <p className="font-sans text-[11px] uppercase tracking-wider text-muted-foreground mb-4">
-              The AI Phrasebook Roadmap
+              {a.roadmap_title}
             </p>
 
             {fetchError ? (
               <div className="border-[0.5px] border-border p-6">
                 <p className="font-sans text-[14px] text-muted-foreground">
-                  Could not load roadmap data. Please try again later.
+                  {a.roadmap_error}
                 </p>
               </div>
             ) : (
               <RoadmapClient items={items} />
             )}
 
-            {/* ── 5. FEATURE REQUEST FORM (component owns its own section wrapper) */}
+            {/* IdeaForm is English-only for now */}
             <IdeaForm />
           </div>
         </section>
@@ -217,26 +227,26 @@ export default function AboutClient({
             className="font-serif font-bold text-foreground mb-4"
             style={{ fontSize: "26px", lineHeight: "1.3" }}
           >
-            Enough backstage.<br />
-            Go look something <em>up.</em>
+            {a.cta_headline1}<br />
+            {a.cta_headline2} <em>{a.cta_headline2_em}</em>
           </h2>
           <p
             className="font-sans text-[14px] mb-8"
             style={{ color: "#888888" }}
           >
-            Your IT department called. It&apos;s the only shadow AI they tolerate.
+            {a.cta_sub}
           </p>
           <a
-            href="/"
+            href={a.home_url}
             className="inline-block font-sans font-bold text-[14px] text-foreground bg-transparent border border-border rounded-[6px] px-[18px] py-[7px] hover:border-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors"
           >
-            Back to the AI Phrasebook
+            {a.cta_button}
           </a>
         </section>
 
       </main>
 
-      {/* ── 7. NEWSLETTER BAND ───────────────────────────────────────────────── */}
+      {/* ── 7. NEWSLETTER BAND (always English) ─────────────────────────────── */}
       <section
         aria-label="The Monday Series newsletter"
         className="text-center px-6 py-12 bg-surface"

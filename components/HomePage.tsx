@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import type { Messages, Locale } from "@/lib/i18n"
+import LanguageToggle from "@/components/LanguageToggle"
 
 // ─── data ────────────────────────────────────────────────────────────────────
 
@@ -69,49 +69,6 @@ interface EntryData {
 function getRawChapter(term: string): string {
   const normalized = term.toLowerCase().trim()
   return CHAPTER_MAPPING[normalized] || "The AI Phrasebook"
-}
-
-// ─── LanguageToggle ──────────────────────────────────────────────────────────
-
-function LanguageToggle({ locale }: { locale: Locale }) {
-  const router = useRouter()
-
-  return (
-    <div
-      className="flex items-center rounded-full p-[3px]"
-      style={{
-        background: "#F0EFEB",
-        border: "0.5px solid #DDDDDD",
-      }}
-    >
-      <button
-        onClick={() => router.push("/")}
-        aria-label="Switch to English"
-        aria-pressed={locale === "en"}
-        className="flex items-center justify-center rounded-full font-sans text-[15px] transition-colors cursor-pointer border-0"
-        style={{
-          background: locale === "en" ? "#1A1A1A" : "transparent",
-          width: "38px",
-          height: "34px",
-        }}
-      >
-        🇬🇧
-      </button>
-      <button
-        onClick={() => router.push("/fr")}
-        aria-label="Passer en français"
-        aria-pressed={locale === "fr"}
-        className="flex items-center justify-center rounded-full font-sans text-[15px] transition-colors cursor-pointer border-0"
-        style={{
-          background: locale === "fr" ? "#1A1A1A" : "transparent",
-          width: "38px",
-          height: "34px",
-        }}
-      >
-        🇫🇷
-      </button>
-    </div>
-  )
 }
 
 // ─── LoadingSequence ─────────────────────────────────────────────────────────
@@ -290,7 +247,7 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
 
         {/* Absolutely centered — never moves regardless of side widths */}
         <div className="absolute left-1/2 -translate-x-1/2">
-          <LanguageToggle locale={locale} />
+          <LanguageToggle locale={locale} enUrl="/" frUrl="/fr" />
         </div>
 
         <button

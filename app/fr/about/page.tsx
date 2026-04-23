@@ -1,8 +1,8 @@
 export const dynamic = 'force-dynamic'
 
-import AboutClient from './AboutClient'
-import { type RoadmapItem } from './RoadmapClient'
-import messages from '@/messages/en.json'
+import AboutClient from '@/app/about/AboutClient'
+import { type RoadmapItem } from '@/app/about/RoadmapClient'
+import messages from '@/messages/fr.json'
 
 async function fetchRoadmapData(): Promise<RoadmapItem[]> {
   const url =
@@ -54,7 +54,7 @@ function parseCSVLine(line: string): string[] {
   return fields
 }
 
-export default async function RoadmapPage() {
+export default async function FrAboutPage() {
   let items: RoadmapItem[] = []
   let fetchError = false
 
@@ -64,5 +64,5 @@ export default async function RoadmapPage() {
     fetchError = true
   }
 
-  return <AboutClient items={items} fetchError={fetchError} locale="en" messages={messages} />
+  return <AboutClient items={items} fetchError={fetchError} locale="fr" messages={messages} />
 }
