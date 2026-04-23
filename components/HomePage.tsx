@@ -236,7 +236,7 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
         locale={locale}
         enUrl="/"
         frUrl="/fr"
-        leftHref="/about"
+        leftHref={locale === "fr" ? "/fr/about" : "/about"}
         leftLabel={t.nav.about}
         onShare={handleEmail}
         shareLabel={t.nav.help}
