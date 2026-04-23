@@ -1,56 +1,36 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
-const FOOTER_LINES = [
-  "written with Claude because nobody wanted to do this job",
-  "written with Claude because humans were taking too long",
-  "written with Claude because it never tells me to \"circle back\"",
-  "written with Claude because humans charge by the hour",
-  "written with Claude because consensus produces nothing",
+const CLAUDE_CREDITS = [
   "written with Claude because it doesn't have opinions about the font",
-  "written with Claude because a committee would still be talking",
-  "written with Claude because consultants would have called it a journey",
-  "written with Claude because explaining AI with AI felt honest",
-  "written with Claude because someone had to finish this",
+  "built with Claude, who suggested gradients. twice.",
+  "Claude did the typing. Sophie did the deleting.",
+  "made with Claude (he's trying his best)",
+  "powered by an AI that doesn't know what it doesn't know",
+  "Claude helped. Ygor supervised.",
+  "no AIs were hallucinated in the making of this site",
+  "50% human. 50% Claude. 100% edited.",
+  "AI-assisted. Human-approved. Dog-adjacent.",
+  "Claude wrote this. I reviewed it. We don't talk about the first draft.",
 ]
 
 export default function Footer() {
-  const [footerLine, setFooterLine] = useState("")
-
-  useEffect(() => {
-    setFooterLine(FOOTER_LINES[Math.floor(Math.random() * FOOTER_LINES.length)])
-  }, [])
-
-  const handleEmail = () => {
-    const subject = encodeURIComponent("Next time someone says RAG in a meeting")
-    const body = encodeURIComponent(
-      "Have you seen this?\n\nIt's a free tool that explains AI terms in plain English.\n\nhttps://www.theaiphrasebook.com"
-    )
-    window.location.href = `mailto:?subject=${subject}&body=${body}`
-  }
+  const [claudeIndex, setClaudeIndex] = useState(0)
 
   return (
-    <footer className="border-t-[0.5px] border-border">
-      <div className="max-w-3xl mx-auto px-4 md:px-8 py-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left — share */}
-        <div className="flex flex-col items-start gap-2">
-          <p className="font-sans text-[12px] text-muted-foreground">Know someone who&apos;d want that?</p>
-          <button
-            onClick={handleEmail}
-            className="bg-foreground text-background font-sans font-bold text-[13px] px-5 py-2.5 hover:bg-accent hover:text-foreground transition-colors"
-          >
-            Help a colleague in need
-          </button>
-        </div>
-
-        {/* Right — credits */}
-        <div className="flex flex-col items-start md:items-end gap-1">
-          <p className="font-serif italic text-[13px] text-foreground">by Sophie Mona Pagès</p>
-          <p className="font-sans text-[11px] text-muted-foreground">{footerLine}</p>
-          <p className="font-sans text-[11px] text-muted-foreground">© 2026 The AI Phrasebook</p>
-        </div>
-      </div>
+    <footer className="text-center py-6 bg-background">
+      <p className="font-sans text-[11px] mb-1" style={{ color: "#CCCCCC" }}>
+        © 2026 The AI Phrasebook · by Sophie Mona Pag&egrave;s
+      </p>
+      <button
+        onClick={() => setClaudeIndex((prev) => (prev + 1) % CLAUDE_CREDITS.length)}
+        aria-label="Cycle through Claude credits"
+        className="font-sans text-[11px] bg-transparent border-0 p-0 cursor-pointer hover:underline underline-offset-2"
+        style={{ color: "#CCCCCC" }}
+      >
+        {CLAUDE_CREDITS[claudeIndex]}
+      </button>
     </footer>
   )
 }
