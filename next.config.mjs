@@ -6,6 +6,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/roadmap',
+        destination: '/about',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

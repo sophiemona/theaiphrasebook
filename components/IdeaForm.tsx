@@ -42,7 +42,7 @@ export default function IdeaForm() {
             Feature requests
           </p>
           <h2 className="font-serif font-bold text-[28px] md:text-[32px] leading-tight mb-3 text-foreground">
-            Got an idea?
+            Got an <em style={{ textDecoration: "underline", textDecorationColor: "#FFA51F", textUnderlineOffset: "4px", textDecorationThickness: "2px" }}>idea</em>?
           </h2>
           <p className="font-sans text-[14px] text-muted-foreground leading-relaxed">
             Tell us what you'd want to see built. If it makes the roadmap, your name goes on the card.
@@ -120,7 +120,7 @@ export default function IdeaForm() {
                 type="submit"
                 className="bg-accent text-foreground font-sans font-bold text-[14px] px-[22px] py-[7px] rounded-[6px] hover:bg-[#f09800] transition-colors"
               >
-                {submitting ? "Sending..." : "Submit idea"}
+                {submitting ? "Sending..." : "Submit"}
               </button>
             </div>
           </form>

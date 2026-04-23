@@ -257,7 +257,7 @@ export default function Home() {
           margin + matching padding, keeping the visual text position unchanged.
         */}
         <a
-          href="/roadmap"
+          href="/about"
           className="font-sans text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline py-3 -my-3 px-1"
         >
           About
