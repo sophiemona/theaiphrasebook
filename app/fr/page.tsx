@@ -7,7 +7,7 @@ export default function PageFr() {
     <HomePage
       locale="fr"
       messages={messages}
-      staticMessages={{ newsletter: en.newsletter, credits: en.credits, footer: en.footer }}
+      staticMessages={{ credits: en.credits, footer: en.footer }}
     />
   )
 }

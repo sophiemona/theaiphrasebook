@@ -118,21 +118,16 @@ function LoadingSequence({ messages }: { messages: string[] }) {
 interface HomePageProps {
   locale: Locale
   messages: Messages
-  // Newsletter and footer always use this — defaults to messages if omitted
-  staticMessages?: Pick<Messages, "newsletter" | "credits" | "footer">
+  // Footer always uses this when provided (e.g. always English)
+  staticMessages?: Pick<Messages, "credits" | "footer">
 }
 
 export default function HomePage({ locale, messages: t, staticMessages }: HomePageProps) {
-  // Newsletter and footer sections use staticMessages when provided (e.g. always English)
-  const s = staticMessages ?? t
+  const footerMessages = staticMessages ?? t
   const [term, setTerm] = useState("")
   const [entry, setEntry] = useState<EntryData | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [emailInput, setEmailInput] = useState("")
-  const [emailSubmitting, setEmailSubmitting] = useState(false)
-  const [emailSubmitted, setEmailSubmitted] = useState(false)
-  const [emailError, setEmailError] = useState<string | null>(null)
   const [claudeIndex, setClaudeIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
@@ -168,26 +163,6 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
       setError(t.errors.generate_failed)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!emailInput.trim()) return
-    setEmailSubmitting(true)
-    setEmailError(null)
-    try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailInput }),
-      })
-      if (!response.ok) throw new Error("Failed")
-      setEmailSubmitted(true)
-    } catch {
-      setEmailError(t.newsletter.error)
-    } finally {
-      setEmailSubmitting(false)
     }
   }
 
@@ -258,6 +233,13 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
               The AI Phrasebook
             </span>
           </div>
+
+          <p
+            className="font-sans text-[14px] leading-relaxed text-center mb-3 mx-auto"
+            style={{ color: "#888888", maxWidth: "440px" }}
+          >
+            {t.hero.description}
+          </p>
 
           {/* Tagline */}
           <p
@@ -419,74 +401,6 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
         {!hasResults && <div className="flex-1" />}
       </main>
 
-      {/* ── Newsletter band ──────────────────────────────────────────────── */}
-      <section
-        aria-label="Subscribe to the Monday Series newsletter"
-        className="text-center px-6 py-12 bg-surface"
-        style={{ borderTop: "0.5px solid #DDDDDD" }}
-      >
-        <p className="font-sans font-bold text-[11px] uppercase tracking-widest text-muted-foreground mb-2">
-          {s.newsletter.series}
-        </p>
-        <h2 className="font-serif font-bold text-[20px] text-foreground mb-4">
-          {s.newsletter.headline_prefix} <em>{s.newsletter.headline_em}</em>{s.newsletter.headline_suffix}
-        </h2>
-        <p
-          className="font-sans text-[14px] text-muted-foreground mx-auto mb-6"
-          style={{ maxWidth: "400px" }}
-        >
-          {s.newsletter.description}
-        </p>
-
-        {emailSubmitted ? (
-          <p className="font-sans text-[14px] text-foreground">
-            {s.newsletter.success}
-          </p>
-        ) : (
-          <form
-            onSubmit={handleEmailSubmit}
-            aria-label="Subscribe to the Monday Series newsletter"
-            className="flex gap-2 mx-auto"
-            style={{ maxWidth: "360px" }}
-          >
-            <label htmlFor="newsletter-email" className="sr-only">
-              {s.newsletter.email_placeholder}
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              placeholder={s.newsletter.email_placeholder}
-              required
-              autoComplete="email"
-              className="flex-1 font-sans bg-background outline-none focus:border-[#AAAAAA] transition-colors"
-              style={{
-                border: "0.5px solid #DDDDDD",
-                borderRadius: "6px",
-                fontSize: "15px",
-                padding: "7px 14px",
-              }}
-            />
-            <button
-              type="submit"
-              disabled={emailSubmitting}
-              className="font-sans font-bold text-[14px] text-white bg-foreground border-0 rounded-[6px] px-[18px] py-[7px] hover:bg-[#333333] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {emailSubmitting ? s.newsletter.sending : s.newsletter.subscribe}
-            </button>
-          </form>
-        )}
-        {emailError && (
-          <p
-            role="alert"
-            className="font-sans text-[12px] text-muted-foreground mt-2"
-          >
-            {emailError}
-          </p>
-        )}
-      </section>
-
       {/* ── Footer ───────────────────────────────────────────────────────── */}
       <footer className="text-center py-6 bg-background">
         <p className="font-sans text-[11px] mb-1" style={{ color: "#CCCCCC" }}>
@@ -502,12 +416,12 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
           </a>
         </p>
         <button
-          onClick={() => setClaudeIndex((prev) => (prev + 1) % s.credits.length)}
-          aria-label={s.footer.credits_aria}
+          onClick={() => setClaudeIndex((prev) => (prev + 1) % footerMessages.credits.length)}
+          aria-label={footerMessages.footer.credits_aria}
           className="font-sans text-[11px] bg-transparent border-0 p-0 cursor-pointer underline-offset-2 hover:underline"
           style={{ color: "#CCCCCC" }}
         >
-          {s.credits[claudeIndex]}
+          {footerMessages.credits[claudeIndex]}
         </button>
       </footer>
     </div>
