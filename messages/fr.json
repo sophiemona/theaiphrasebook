@@ -1,8 +1,7 @@
 {
   "nav": {
     "about": "À propos",
-    "help": "Partager avec un collègue",
-    "newsletter_aria": "S'abonner à La Série du Lundi"
+    "help": "Partager avec un collègue"
   },
   "hero": {
     "tagline_prefix": "Tout le jargon de l'IA.",
@@ -20,18 +19,6 @@
     "need_to_know": "CE QU'IL FAUT VRAIMENT SAVOIR",
     "say_this": "Dis ça",
     "not_this": "Pas ça"
-  },
-  "newsletter": {
-    "series": "LA SÉRIE DU LUNDI",
-    "headline_prefix": "Un terme expliqué. Chaque",
-    "headline_em": "lundi",
-    "headline_suffix": ".",
-    "description": "Écrit par des humains, prêt à l'emploi. La version qu'on imprimerait, si imprimer des choses sur l'IA n'était pas légèrement tragique.",
-    "email_placeholder": "votre@email.com",
-    "subscribe": "S'abonner",
-    "sending": "Envoi...",
-    "success": "C'est noté. À lundi.",
-    "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "share": {
     "email_subject": "La prochaine fois que quelqu'un dit RAG en réunion",

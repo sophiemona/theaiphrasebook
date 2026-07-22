@@ -2,7 +2,6 @@ export interface Messages {
   nav: {
     about: string
     help: string
-    newsletter_aria: string
   }
   hero: {
     tagline_prefix: string
@@ -20,18 +19,6 @@ export interface Messages {
     need_to_know: string
     say_this: string
     not_this: string
-  }
-  newsletter: {
-    series: string
-    headline_prefix: string
-    headline_em: string
-    headline_suffix: string
-    description: string
-    email_placeholder: string
-    subscribe: string
-    sending: string
-    success: string
-    error: string
   }
   share: {
     email_subject: string
