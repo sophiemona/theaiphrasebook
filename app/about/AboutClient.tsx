@@ -34,10 +34,6 @@ export default function AboutClient({
   locale: Locale
   messages: Messages
 }) {
-  const [emailInput, setEmailInput] = useState("")
-  const [emailSubmitting, setEmailSubmitting] = useState(false)
-  const [emailSubmitted, setEmailSubmitted] = useState(false)
-  const [emailError, setEmailError] = useState<string | null>(null)
   const [claudeIndex, setClaudeIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
 
@@ -57,26 +53,6 @@ export default function AboutClient({
       const subject = encodeURIComponent(t.share.email_subject)
       const body = encodeURIComponent(t.share.email_body)
       window.location.href = `mailto:?subject=${subject}&body=${body}`
-    }
-  }
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!emailInput.trim()) return
-    setEmailSubmitting(true)
-    setEmailError(null)
-    try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailInput }),
-      })
-      if (!response.ok) throw new Error("Failed")
-      setEmailSubmitted(true)
-    } catch {
-      setEmailError("Something went wrong. Please try again.")
-    } finally {
-      setEmailSubmitting(false)
     }
   }
 
@@ -237,71 +213,6 @@ export default function AboutClient({
         </section>
 
       </main>
-
-      {/* ── 7. NEWSLETTER BAND (always English) ─────────────────────────────── */}
-      <section
-        aria-label="The Monday Series newsletter"
-        className="text-center px-6 py-12 bg-surface"
-        style={{ borderTop: "0.5px solid #DDDDDD" }}
-      >
-        <p className="font-sans font-bold text-[11px] uppercase tracking-widest text-muted-foreground mb-2">
-          THE MONDAY SERIES
-        </p>
-        <h2 className="font-serif font-bold text-[20px] text-foreground mb-4">
-          One term. Every <em>Monday</em>.
-        </h2>
-        <p
-          className="font-sans text-[14px] text-muted-foreground mx-auto mb-6"
-          style={{ maxWidth: "400px" }}
-        >
-          Edited by humans, ready to use. The version we&apos;d print, if printing things about AI weren&apos;t a little bit tragic.
-        </p>
-
-        {emailSubmitted ? (
-          <p className="font-sans text-[14px] text-foreground">
-            You&apos;re in. See you Monday.
-          </p>
-        ) : (
-          <form
-            onSubmit={handleEmailSubmit}
-            aria-label="Subscribe to the Monday Series newsletter"
-            className="flex gap-2 mx-auto"
-            style={{ maxWidth: "360px" }}
-          >
-            <label htmlFor="about-newsletter-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="about-newsletter-email"
-              type="email"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              placeholder="your@email.com"
-              required
-              autoComplete="email"
-              className="flex-1 font-sans bg-background outline-none focus:border-[#AAAAAA] transition-colors"
-              style={{
-                border: "0.5px solid #DDDDDD",
-                borderRadius: "6px",
-                fontSize: "15px",
-                padding: "7px 14px",
-              }}
-            />
-            <button
-              type="submit"
-              disabled={emailSubmitting}
-              className="font-sans font-bold text-[14px] text-white bg-foreground border-0 rounded-[6px] px-[18px] py-[7px] hover:bg-[#333333] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground transition-colors cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {emailSubmitting ? "Sending..." : "Subscribe"}
-            </button>
-          </form>
-        )}
-        {emailError && (
-          <p role="alert" className="font-sans text-[12px] text-muted-foreground mt-2">
-            {emailError}
-          </p>
-        )}
-      </section>
 
       {/* ── 8. FOOTER ────────────────────────────────────────────────────────── */}
       <footer className="text-center py-6 bg-background">

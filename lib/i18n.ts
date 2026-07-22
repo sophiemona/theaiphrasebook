@@ -5,7 +5,6 @@ export interface Messages {
     newsletter_aria: string
   }
   hero: {
-    description: string
     tagline_prefix: string
     tagline_suffix: string
   }

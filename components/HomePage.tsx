@@ -126,6 +126,7 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
   const footerMessages = staticMessages ?? t
   const [term, setTerm] = useState("")
   const [entry, setEntry] = useState<EntryData | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [claudeIndex, setClaudeIndex] = useState(0)
@@ -150,6 +151,7 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
     setLoading(true)
     setError(null)
     setEntry(null)
+    setNotice(null)
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -158,7 +160,11 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
       })
       if (!response.ok) throw new Error("Failed to generate entry")
       const data = await response.json()
-      setEntry({ ...data, chapter: translateChapter(getRawChapter(termToGenerate)) })
+      if (data.status === "unknown" || data.status === "off_topic") {
+        setNotice(data.message)
+      } else {
+        setEntry({ ...data, chapter: translateChapter(getRawChapter(termToGenerate)) })
+      }
     } catch {
       setError(t.errors.generate_failed)
     } finally {
@@ -233,13 +239,6 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
               The AI Phrasebook
             </span>
           </div>
-
-          <p
-            className="font-sans text-[14px] leading-relaxed text-center mb-3 mx-auto"
-            style={{ color: "#888888", maxWidth: "440px" }}
-          >
-            {t.hero.description}
-          </p>
 
           {/* Tagline */}
           <p
@@ -335,6 +334,16 @@ export default function HomePage({ locale, messages: t, staticMessages }: HomePa
               className="mt-8 border border-border rounded-[6px] p-6"
             >
               <p className="font-sans text-[14px] text-foreground">{error}</p>
+            </div>
+          )}
+
+          {/* Notice: unknown term or off-topic input */}
+          {notice && !loading && (
+            <div
+              role="status"
+              className="mt-8 bg-surface border border-border rounded-[6px] p-6"
+            >
+              <p className="font-sans text-[14px] text-foreground">{notice}</p>
             </div>
           )}
 
