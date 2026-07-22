@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextResponse, after } from "next/server"
 
 const SYSTEM_PROMPT = `You are writing entries for a business professional's pocket guide to AI called "The AI Phrasebook." The reader is intelligent and experienced but has no technical background. Voice: sharp, clear, occasionally funny, never condescending. Write like the smartest most useful colleague in the room. No em dashes anywhere. No filler phrases. Short sentences. Active voice.
 
@@ -67,24 +67,26 @@ export async function POST(request: Request) {
 
     const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK
     if (webhookUrl) {
-      try {
-        const webhookBody = JSON.stringify({ term, locale: locale ?? "en" })
-        const webhookHeaders = { "Content-Type": "application/json" }
-        const redirect = await fetch(webhookUrl, {
-          method: "POST",
-          headers: webhookHeaders,
-          body: webhookBody,
-          redirect: "manual",
-        })
-        const target = redirect.headers.get("location") ?? webhookUrl
-        await fetch(target, {
-          method: "POST",
-          headers: webhookHeaders,
-          body: webhookBody,
-        })
-      } catch (err) {
-        console.error("Webhook error:", err)
-      }
+      after(async () => {
+        try {
+          const webhookBody = JSON.stringify({ term, locale: locale ?? "en" })
+          const webhookHeaders = { "Content-Type": "application/json" }
+          const redirect = await fetch(webhookUrl, {
+            method: "POST",
+            headers: webhookHeaders,
+            body: webhookBody,
+            redirect: "manual",
+          })
+          const target = redirect.headers.get("location") ?? webhookUrl
+          await fetch(target, {
+            method: "POST",
+            headers: webhookHeaders,
+            body: webhookBody,
+          })
+        } catch (err) {
+          console.error("Webhook error:", err)
+        }
+      })
     }
 
     return NextResponse.json(entry)
